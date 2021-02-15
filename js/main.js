@@ -13,7 +13,7 @@ calculateButton.addEventListener('click', function (e) {
     const days = new Decimal(daysInput.value);
     const daysInYear = new Decimal(365);
 
-    const result = ((1 + (interest / principal) / daysInYear) ** days - 1) * 100;
+    const result = ((1 + (interest / principal) / daysInYear) ** days - 1) * principal;
     details.innerHTML = `((1 + (${interest} / ${principal}) / ${daysInYear}) ** ${days} - 1) * 100`;
     output.innerHTML = `${result}`;
 });
