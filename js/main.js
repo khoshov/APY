@@ -2,18 +2,22 @@ const calculateButton = document.querySelector('#calculate');
 
 calculateButton.addEventListener('click', function (e) {
     e.preventDefault();
-    const principalInput = document.querySelector('#principal');
+    const amountInput = document.querySelector('#principal');
     const interestInput = document.querySelector('#interest');
     const daysInput = document.querySelector('#days');
     const output = document.querySelector('#output')
     const details = document.querySelector('#details')
 
-    const principal = new Decimal(principalInput.value);
-    const interest = new Decimal(interestInput.value);
-    const days = new Decimal(daysInput.value);
-    const daysInYear = new Decimal(365);
+    const amount = amountInput.value;
+    const APY = interestInput.value;
+    const days = daysInput.value;
 
-    const result = ((1 + (interest / principal) / daysInYear) ** days - 1) * principal;
-    details.innerHTML = `((1 + (${interest} / ${principal}) / ${daysInYear}) ** ${days} - 1) * 100`;
+    let interestRate = (((APY / 100) + 1) ** (1 / 365) - 1) * 365 * 100;
+    interestRate = new Decimal(interestRate).toDecimalPlaces(2)
+
+    let result = ((1 + (interestRate / 100) / 365) ** days - 1) * amount;
+    result = new Decimal(result).toDecimalPlaces(2);
+
+    details.innerHTML = `((1 + (${interestRate} / 100 / ${365}) ** ${days} - 1) * ${amount}`;
     output.innerHTML = `${result}`;
 });
