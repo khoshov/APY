@@ -16,7 +16,7 @@ calculateButton.addEventListener('click', function (e) {
     interestRate = new Decimal(interestRate).toDecimalPlaces(2)
 
     let result = ((1 + (interestRate / 100) / 365) ** days - 1) * amount;
-    result = new Decimal(result).toDecimalPlaces(2);
+    result = new Decimal(result).toDecimalPlaces(6);
 
     details.innerHTML = `((1 + (${interestRate} / 100 / ${365}) ** ${days} - 1) * ${amount}`;
     output.innerHTML = `${result}`;
