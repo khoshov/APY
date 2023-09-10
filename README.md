@@ -1,1 +1,1 @@
-`npx @marp-team/marp-cli@latest slides.md -o slides.html --html`
+`npx @marp-team/marp-cli@latest slides.md -o index.html --html`
