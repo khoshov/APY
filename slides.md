@@ -141,7 +141,96 @@ https://peps.python.org/pep-0530/
 
 ---
 
+# PEP 553: Built-in breakpoint()
+https://www.python.org/dev/peps/pep-0553/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 557: Data Classes
+https://www.python.org/dev/peps/pep-0557/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 562: Module __getattr__
+https://www.python.org/dev/peps/pep-0562/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 560: Core support for generic types
+https://www.python.org/dev/peps/pep-0560/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
 # 3.8
+
+---
+
+# PEP 572: Syntax for Statement-Local Name Bindings
+https://peps.python.org/pep-0572/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 570: Python Positional-Only Parameters
+https://www.python.org/dev/peps/pep-0570/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# Typing-related: PEP 591 (Final qualifier), PEP 586 (Literal types), and PEP 589 (TypedDict)
+https://peps.python.org/pep-0591/
+https://peps.python.org/pep-0586/
+https://peps.python.org/pep-0589/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# f-strings support a handy = specifier for debugging
+
+---
+
+```python
+# code example goes here
+```
 
 ---
 
@@ -149,7 +238,97 @@ https://peps.python.org/pep-0530/
 
 ---
 
+# PEP 615, Support for the IANA Time Zone Database in the Standard Library
+https://peps.python.org/pep-0615/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 584, Add Union Operators To dict
+https://peps.python.org/pep-0584/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 614, Relaxing Grammar Restrictions On Decorators
+https://peps.python.org/pep-0614/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 593, Flexible function and variable annotations
+https://peps.python.org/pep-0593/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 585, Type Hinting Generics In Standard Collections
+https://peps.python.org/pep-0585/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 616, String methods to remove prefixes and suffixes
+https://peps.python.org/pep-0616/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
 # 3.10
+
+---
+
+# PEP 604, Allow writing union types as X | Y
+https://peps.python.org/pep-0604/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 634, PEP 635, PEP 636, Structural Pattern Matching
+https://peps.python.org/pep-0634/
+https://peps.python.org/pep-0635/
+https://peps.python.org/pep-0636/
+
+---
+
+```python
+# code example goes here
+```
 
 ---
 
