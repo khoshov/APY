@@ -99,7 +99,17 @@ https://www.python.org/dev/peps/pep-0515/
 ---
 
 ```python
-# code example goes here
+# grouping decimal numbers by thousands
+amount = 10_000_000.0
+
+# grouping hexadecimal addresses by words
+addr = 0xCAFE_F00D
+
+# grouping bits into nibbles in a binary literal
+flags = 0b_0011_1111_0100_1110
+
+# same, for string conversions
+flags = int('0b_1111_0000', 2)
 ```
 
 ---
@@ -110,7 +120,24 @@ https://peps.python.org/pep-0526/
 ---
 
 ```python
-# code example goes here
+# 'primes' is a list of integers
+primes = []  # type: List[int]
+
+# 'captain' is a string (Note: initial value is a problem)
+captain = ...  # type: str
+
+class Starship:
+    # 'stats' is a class variable
+    stats = {}  # type: Dict[str, int]
+```
+
+```python
+primes: List[int] = []
+
+captain: str  # Note: no initial value!
+
+class Starship:
+    stats: ClassVar[Dict[str, int]] = {}
 ```
 
 ---
@@ -121,7 +148,33 @@ https://peps.python.org/pep-0525/
 ---
 
 ```python
-# code example goes here
+class Ticker:
+    """Yield numbers from 0 to `to` every `delay` seconds."""
+
+    def __init__(self, delay, to):
+        self.delay = delay
+        self.i = 0
+        self.to = to
+
+    def __aiter__(self):
+        return self
+
+    async def __anext__(self):
+        i = self.i
+        if i >= self.to:
+            raise StopAsyncIteration
+        self.i += 1
+        if i:
+            await asyncio.sleep(self.delay)
+        return i
+```
+
+```python
+async def ticker(delay, to):
+    """Yield numbers from 0 to `to` every `delay` seconds."""
+    for i in range(to):
+        yield i
+        await asyncio.sleep(delay)
 ```
 
 ---
@@ -132,7 +185,18 @@ https://peps.python.org/pep-0530/
 ---
 
 ```python
-# code example goes here
+result = []
+async for i in aiter():
+    if i % 2:
+        result.append(i)
+```
+
+```python
+result = [i async for i in aiter() if i % 2]
+```
+
+```python
+result = [await fun() for fun in funcs]
 ```
 
 ---
