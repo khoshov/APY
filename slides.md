@@ -802,8 +802,8 @@ https://docs.python.org/3.12/whatsnew/3.12.html#improved-error-messages
 
 ---
 
+Modules from the standard library are now potentially suggested as part of the error messages displayed by the interpreter when a NameError is raised to the top level.
 ```python
-# Modules from the standard library are now potentially suggested as part of the error messages displayed by the interpreter when a NameError is raised to the top level.
 sys.version_info
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -812,8 +812,8 @@ NameError: name 'sys' is not defined. Did you forget to import 'sys'?
 
 ---
 
+Improve the error suggestion for NameError exceptions for instances.
 ```python
-# Improve the error suggestion for NameError exceptions for instances.
 class A:
    def __init__(self):
        self.blech = 1
@@ -830,9 +830,8 @@ NameError: name 'blech' is not defined. Did you mean: 'self.blech'?
 
 ---
 
+Improve the SyntaxError error message when the user types import x from y instead of from y import x
 ```python
-# Improve the SyntaxError error message when the user types import x from y instead of from y import x
-
 import a.y.z from b.y.z
   File "<stdin>", line 1
     import a.y.z from b.y.z
@@ -842,9 +841,8 @@ SyntaxError: Did you mean to use 'from ... import ...' instead?
 
 ---
 
+ImportError exceptions raised from failed from <module> import <name> statements now include suggestions for the value of <name> based on the available names in <module>.
 ```python
-# ImportError exceptions raised from failed from <module> import <name> statements now include suggestions for the value of <name> based on the available names in <module>.
-
 from collections import chainmap
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>

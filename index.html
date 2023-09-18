@@ -679,16 +679,16 @@ keywords = [<span class="hljs-string">&quot;toml&quot;</span>]
 <p><a href="https://docs.python.org/3.12/whatsnew/3.12.html#improved-error-messages">https://docs.python.org/3.12/whatsnew/3.12.html#improved-error-messages</a></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="85" data-paginate="true" data-background-color="#fff" data-theme="default" data-marpit-pagination="85" style="--paginate:true;--background-color:#fff;--theme:default;background-color:#fff;background-image:none;" data-marpit-pagination-total="88">
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Modules from the standard library are now potentially suggested as part of the error messages displayed by the interpreter when a NameError is raised to the top level.</span>
-sys.version_info
+<p>Modules from the standard library are now potentially suggested as part of the error messages displayed by the interpreter when a NameError is raised to the top level.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">sys.version_info
 Traceback (most recent call last):
   File <span class="hljs-string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;
 NameError: name <span class="hljs-string">&#x27;sys&#x27;</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined. Did you forget to <span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;sys&#x27;</span>?
 </code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="86" data-paginate="true" data-background-color="#fff" data-theme="default" data-marpit-pagination="86" style="--paginate:true;--background-color:#fff;--theme:default;background-color:#fff;background-image:none;" data-marpit-pagination-total="88">
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Improve the error suggestion for NameError exceptions for instances.</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>:
+<p>Improve the error suggestion for NameError exceptions for instances.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>:
    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
        self.blech = <span class="hljs-number">1</span>
 
@@ -703,9 +703,8 @@ NameError: name <span class="hljs-string">&#x27;blech&#x27;</span> <span class="
 </code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="87" data-paginate="true" data-background-color="#fff" data-theme="default" data-marpit-pagination="87" style="--paginate:true;--background-color:#fff;--theme:default;background-color:#fff;background-image:none;" data-marpit-pagination-total="88">
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Improve the SyntaxError error message when the user types import x from y instead of from y import x</span>
-
-<span class="hljs-keyword">import</span> a.y.z <span class="hljs-keyword">from</span> b.y.z
+<p>Improve the SyntaxError error message when the user types import x from y instead of from y import x</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> a.y.z <span class="hljs-keyword">from</span> b.y.z
   File <span class="hljs-string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="hljs-number">1</span>
     <span class="hljs-keyword">import</span> a.y.z <span class="hljs-keyword">from</span> b.y.z
     ^^^^^^^^^^^^^^^^^^^^^^^
@@ -713,9 +712,8 @@ SyntaxError: Did you mean to use <span class="hljs-string">&#x27;from ... import
 </code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="88" data-paginate="true" data-background-color="#fff" data-theme="default" data-marpit-pagination="88" style="--paginate:true;--background-color:#fff;--theme:default;background-color:#fff;background-image:none;" data-marpit-pagination-total="88">
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># ImportError exceptions raised from failed from &lt;module&gt; import &lt;name&gt; statements now include suggestions for the value of &lt;name&gt; based on the available names in &lt;module&gt;.</span>
-
-<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> chainmap
+<p>ImportError exceptions raised from failed from <module> import <name> statements now include suggestions for the value of <name> based on the available names in <module>.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> chainmap
 Traceback (most recent call last):
   File <span class="hljs-string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;
 ImportError: cannot <span class="hljs-keyword">import</span> name <span class="hljs-string">&#x27;chainmap&#x27;</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;collections&#x27;</span>. Did you mean: <span class="hljs-string">&#x27;ChainMap&#x27;</span>?
