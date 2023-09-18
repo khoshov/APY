@@ -521,68 +521,84 @@ movie: Movie = {'name': 'Blade Runner', 'year': 1982}
 
 ---
 
-# PEP 615, Support for the IANA Time Zone Database in the Standard Library
+# PEP 615: Support for the IANA Time Zone Database in the Standard Library
 https://peps.python.org/pep-0615/
 
 ---
 
 ```python
-# code example goes here
+>>> from datetime import datetime
+>>> from zoneinfo import ZoneInfo
+>>> datetime.now(tz=ZoneInfo("Europe/Oslo"))
+datetime.datetime(2020, 9, 8, 17, 12, 0, 939001, tzinfo=zoneinfo.ZoneInfo(key='Europe/Oslo'))
+
+>>> datetime(2020, 10, 5, 3, 9, tzinfo=ZoneInfo("America/Vancouver"))
+datetime.datetime(2020, 10, 5, 3, 9, tzinfo=zoneinfo.ZoneInfo(key='America/Vancouver'))
 ```
 
 ---
 
-# PEP 584, Add Union Operators To dict
+# PEP 584: Add Union Operators To dict
 https://peps.python.org/pep-0584/
 
 ---
 
+Dict union will return a new dict consisting of the left operand merged with the right operand
 ```python
-# code example goes here
+>>> d = {'spam': 1, 'eggs': 2, 'cheese': 3}
+>>> e = {'cheese': 'cheddar', 'aardvark': 'Ethel'}
+>>> d | e
+{'spam': 1, 'eggs': 2, 'cheese': 'cheddar', 'aardvark': 'Ethel'}
+>>> e | d
+{'cheese': 3, 'aardvark': 'Ethel', 'spam': 1, 'eggs': 2}
 ```
 
 ---
 
-# PEP 614, Relaxing Grammar Restrictions On Decorators
-https://peps.python.org/pep-0614/
-
----
-
+The augmented assignment version operates in-place:
 ```python
-# code example goes here
+>>> d |= e
+>>> d
+{'spam': 1, 'eggs': 2, 'cheese': 'cheddar', 'aardvark': 'Ethel'}
 ```
 
 ---
 
-# PEP 593, Flexible function and variable annotations
-https://peps.python.org/pep-0593/
-
----
-
-```python
-# code example goes here
-```
-
----
-
-# PEP 585, Type Hinting Generics In Standard Collections
+# PEP 585: Type Hinting Generics In Standard Collections
 https://peps.python.org/pep-0585/
 
+
 ---
 
+Starting with Python 3.7, when from __future__ import annotations is used, function and variable annotations can parameterize standard collections directly. Example:
 ```python
-# code example goes here
+from __future__ import annotations
+
+def find(haystack: dict[str, list[int]]) -> int:
+    ...
 ```
 
 ---
 
-# PEP 616, String methods to remove prefixes and suffixes
+# PEP 616: String methods to remove prefixes and suffixes
 https://peps.python.org/pep-0616/
 
 ---
 
 ```python
-# code example goes here
+def strip_quotes(text):
+    if text.startswith('"'):
+        text = text[1:]
+    if text.endswith('"'):
+        text = text[:-1]
+    return text
+```
+
+---
+
+```python
+def strip_quotes(text):
+    return text.removeprefix('"').removesuffix('"')
 ```
 
 ---
