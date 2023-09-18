@@ -131,6 +131,8 @@ class Starship:
     stats = {}  # type: Dict[str, int]
 ```
 
+---
+
 ```python
 primes: List[int] = []
 
@@ -169,6 +171,8 @@ class Ticker:
         return i
 ```
 
+---
+
 ```python
 async def ticker(delay, to):
     """Yield numbers from 0 to `to` every `delay` seconds."""
@@ -191,9 +195,13 @@ async for i in aiter():
         result.append(i)
 ```
 
+---
+
 ```python
 result = [i async for i in aiter() if i % 2]
 ```
+
+---
 
 ```python
 result = [await fun() for fun in funcs]
@@ -211,7 +219,15 @@ https://www.python.org/dev/peps/pep-0553/
 ---
 
 ```python
-# code example goes here
+foo()
+import pdb; pdb.set_trace()
+bar()
+```
+
+```python
+foo()
+breakpoint()
+bar()
 ```
 
 ---
@@ -222,7 +238,48 @@ https://www.python.org/dev/peps/pep-0557/
 ---
 
 ```python
-# code example goes here
+@dataclass
+class InventoryItem:
+    '''Class for keeping track of an item in inventory.'''
+    name: str
+    unit_price: float
+    quantity_on_hand: int = 0
+
+    def total_cost(self) -> float:
+        return self.unit_price * self.quantity_on_hand
+```
+
+```python
+def __init__(self, name: str, unit_price: float, quantity_on_hand: int = 0) -> None:
+    self.name = name
+    self.unit_price = unit_price
+    self.quantity_on_hand = quantity_on_hand
+def __repr__(self):
+    return f'InventoryItem(name={self.name!r}, unit_price={self.unit_price!r}, quantity_on_hand={self.quantity_on_hand!r})'
+def __eq__(self, other):
+    if other.__class__ is self.__class__:
+        return (self.name, self.unit_price, self.quantity_on_hand) == (other.name, other.unit_price, other.quantity_on_hand)
+    return NotImplemented
+def __ne__(self, other):
+    if other.__class__ is self.__class__:
+        return (self.name, self.unit_price, self.quantity_on_hand) != (other.name, other.unit_price, other.quantity_on_hand)
+    return NotImplemented
+def __lt__(self, other):
+    if other.__class__ is self.__class__:
+        return (self.name, self.unit_price, self.quantity_on_hand) < (other.name, other.unit_price, other.quantity_on_hand)
+    return NotImplemented
+def __le__(self, other):
+    if other.__class__ is self.__class__:
+        return (self.name, self.unit_price, self.quantity_on_hand) <= (other.name, other.unit_price, other.quantity_on_hand)
+    return NotImplemented
+def __gt__(self, other):
+    if other.__class__ is self.__class__:
+        return (self.name, self.unit_price, self.quantity_on_hand) > (other.name, other.unit_price, other.quantity_on_hand)
+    return NotImplemented
+def __ge__(self, other):
+    if other.__class__ is self.__class__:
+        return (self.name, self.unit_price, self.quantity_on_hand) >= (other.name, other.unit_price, other.quantity_on_hand)
+    return NotImplemented
 ```
 
 ---
@@ -233,7 +290,73 @@ https://www.python.org/dev/peps/pep-0562/
 ---
 
 ```python
-# code example goes here
+# lib.py
+
+from warnings import warn
+
+deprecated_names = ["old_function", ...]
+
+def _deprecated_old_function(arg, other):
+    ...
+
+def __getattr__(name):
+    if name in deprecated_names:
+        warn(f"{name} is deprecated", DeprecationWarning)
+        return globals()[f"_deprecated_{name}"]
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+# main.py
+
+from lib import old_function  # Works, but emits the warning
+```
+
+---
+
+```python
+# lib/__init__.py
+
+import importlib
+
+__all__ = ['submod', ...]
+
+def __getattr__(name):
+    if name in __all__:
+        return importlib.import_module("." + name, __name__)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+# lib/submod.py
+
+print("Submodule loaded")
+class HeavyClass:
+    ...
+
+# main.py
+
+import lib
+lib.submod.HeavyClass  # prints "Submodule loaded"
+```
+
+---
+
+```python
+# lib.py
+
+deprecated_names = ["old_function", ...]
+__all__ = ["new_function_one", "new_function_two", ...]
+
+def new_function_one(arg, other):
+   ...
+def new_function_two(arg, other):
+    ...
+
+def __dir__():
+    return sorted(__all__ + deprecated_names)
+
+# main.py
+
+import lib
+
+dir(lib)  # prints ["new_function_one", "new_function_two", "old_function", ...]
 ```
 
 ---
