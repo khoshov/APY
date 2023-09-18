@@ -15,7 +15,7 @@ backgroundColor: #fff
 
 ---
 
-# Объём информации *
+# Объём информации
 
 ---
 
@@ -251,7 +251,7 @@ bar()
 
 ---
 
-# PEP 557: Data Classes *
+# PEP 557: Data Classes
 https://www.python.org/dev/peps/pep-0557/
 
 ---
@@ -363,7 +363,7 @@ lib.submod.HeavyClass  # prints "Submodule loaded"
 
 ---
 
-In addition, to allow modifying result of a dir() call on a module to show deprecated and other dynamically generated attributes, it is proposed to support module level `__dir__`` function. For example:
+In addition, to allow modifying result of a dir() call on a module to show deprecated and other dynamically generated attributes, it is proposed to support module level `__dir__` function. For example:
 ```python
 # lib.py
 
@@ -626,7 +626,7 @@ dict[str, int | float]
 
 ---
 
-# PEP 634: Structural Pattern Matching *
+# PEP 634: Structural Pattern Matching
 https://peps.python.org/pep-0634/
 
 ---
