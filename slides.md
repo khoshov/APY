@@ -569,8 +569,7 @@ https://peps.python.org/pep-0585/
 
 
 ---
-
-Starting with Python 3.7, when from __future__ import annotations is used, function and variable annotations can parameterize standard collections directly. Example:
+This PEP proposes to enable support for the generics syntax in all standard collections currently available in the typing module.
 ```python
 from __future__ import annotations
 
@@ -607,26 +606,65 @@ def strip_quotes(text):
 
 ---
 
-# PEP 604, Allow writing union types as X | Y
+# PEP 604: Allow writing union types as X | Y
 https://peps.python.org/pep-0604/
 
 ---
 
+The new union syntax should be accepted for function, variable and parameter annotations.
 ```python
-# code example goes here
+# Instead of
+# def f(list: List[Union[int, str]], param: Optional[int]) -> Union[float, str]
+def f(list: List[int | str], param: int | None) -> float | str:
+    pass
+
+f([1, "abc"], None)
+
+# Instead of typing.List[typing.Union[str, int]]
+typing.List[str | int]
+list[str | int]
+
+# Instead of typing.Dict[str, typing.Union[int, float]]
+typing.Dict[str, int | float]
+dict[str, int | float]
 ```
 
 ---
 
-# PEP 634, PEP 635, PEP 636, Structural Pattern Matching *
+# PEP 634: Structural Pattern Matching *
 https://peps.python.org/pep-0634/
-https://peps.python.org/pep-0635/
-https://peps.python.org/pep-0636/
 
 ---
 
 ```python
-# code example goes here
+>>> user = {
+...     "name": {"first": "Pablo", "last": "Galindo Salgado"},
+...     "title": "Python 3.10 release manager",
+... }
+
+>>> match user:
+...     case {"name": {"first": first_name}}:
+...         pass
+...
+
+>>> first_name
+'Pablo'
+```
+
+---
+
+```python
+def sum_list(numbers):
+    match numbers:
+        case []:
+            return 0
+        case [int(first) | float(first), *rest]:
+            return first + sum_list(rest)
+        case _:
+            raise ValueError(f"Can only sum lists of numbers")
+
+>>> sum_list([45.94, 46.17, 46.72])
+138.82999999999998
 ```
 
 ---
@@ -635,7 +673,7 @@ https://peps.python.org/pep-0636/
 
 ---
 
-# PEP 654, Exception Groups and except*.
+# PEP 654: Exception Groups and except*.
 https://peps.python.org/pep-0654/
 
 ---
@@ -652,20 +690,71 @@ https://peps.python.org/pep-0657/
 ---
 
 ```python
-# code example goes here
+# inverse.py
+
+def inverse(number):
+    return 1 / number
+
+print(inverse(0))
+
+$ python inverse.py
+Traceback (most recent call last):
+  File "/home/realpython/inverse.py", line 6, in <module>
+    print(inverse(0))
+          ^^^^^^^^^^
+  File "/home/realpython/inverse.py", line 4, in inverse
+    return 1 / number
+           ~~^~~~~~~~
+ZeroDivisionError: division by zero
 ```
 
 ---
 
-# PEP 680, Support for parsing TOML in the standard library
+# PEP 680: Support for parsing TOML in the standard library
 https://peps.python.org/pep-0680/
 
 ---
 
 ```python
-# code example goes here
+# pyproject.toml
+
+[build-system]
+requires = ["flit_core>=3.2.0,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "tomli"
+version = "2.0.1"  # DO NOT EDIT THIS LINE MANUALLY. LET bump2version DO IT
+description = "A lil' TOML parser"
+requires-python = ">=3.7"
+readme = "README.md"
+keywords = ["toml"]
+
+    [project.urls]
+    "Homepage" = "https://github.com/hukkin/tomli"
+    "PyPI" = "https://pypi.org/project/tomli"
 ```
 
+---
+ 
+```python
+# TOML support, which allows you to parse TOML documents using the standard library
+import tomllib
+with open("pyproject.toml", mode="rb") as fp:
+    tomllib.load(fp)
+
+# {'build-system': {'requires': ['flit_core>=3.2.0,<4'],
+#                   'build-backend': 'flit_core.buildapi'},
+#  'project': {'name': 'tomli',
+#              'version': '2.0.1',
+#              'description': "A lil' TOML parser",
+#              'requires-python': '>=3.7',
+#              'readme': 'README.md',
+#              'keywords': ['toml'],
+#              'urls': {'Homepage': 'https://github.com/hukkin/tomli',
+#                       'PyPI': 'https://pypi.org/project/tomli'}}}
+```
+ 
 ---
 
 # 3.12
@@ -676,9 +765,34 @@ https://peps.python.org/pep-0680/
 https://docs.python.org/3.12/whatsnew/3.12.html#whatsnew312-pep701
 
 ---
-
+Quote reuse: in Python 3.11, reusing the same quotes as the containing f-string raises a SyntaxError, forcing the user to either use other available quotes (like using double quotes or triple quotes if the f-string uses single quotes). In Python 3.12, you can now do things like this:
 ```python
-# code example goes here
+>>> songs = ['Take me back to Eden', 'Alkaline', 'Ascensionism']
+>>> f"This is the playlist: {", ".join(songs)}"
+'This is the playlist: Take me back to Eden, Alkaline, Ascensionism'
+```
+
+---
+
+Note that before this change there was no explicit limit in how f-strings can be nested, but the fact that string quotes cannot be reused inside the expression component of f-strings made it impossible to nest f-strings arbitrarily. In fact, this is the most nested f-string that could be written:
+```python
+>>> f"""{f'''{f'{f"{1+1}"}'}'''}"""
+'2'
+
+>>> f"{f"{f"{f"{f"{f"{1+1}"}"}"}"}"}"
+'2'
+```
+
+---
+
+Multi-line expressions and comments: In Python 3.11, f-strings expressions must be defined in a single line even if outside f-strings expressions could span multiple lines (like literal lists being defined over multiple lines), making them harder to read. In Python 3.12 you can now define expressions spanning multiple lines and include comments on them:
+```python
+>>> f"This is the playlist: {", ".join([
+...     'Take me back to Eden',  # My, my, those eyes like fire
+...     'Alkaline',              # Not acid nor alkaline
+...     'Ascensionism'           # Take to the broken skies at last
+... ])}"
+'This is the playlist: Take me back to Eden, Alkaline, Ascensionism'
 ```
 
 ---
@@ -689,7 +803,50 @@ https://docs.python.org/3.12/whatsnew/3.12.html#improved-error-messages
 ---
 
 ```python
-# code example goes here
+# Modules from the standard library are now potentially suggested as part of the error messages displayed by the interpreter when a NameError is raised to the top level.
+sys.version_info
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'sys' is not defined. Did you forget to import 'sys'?
 ```
 
 ---
+
+```python
+# Improve the error suggestion for NameError exceptions for instances.
+class A:
+   def __init__(self):
+       self.blech = 1
+
+   def foo(self):
+       somethin = blech
+
+A().foo()
+  File "<stdin>", line 1
+    somethin = blech
+               ^^^^^
+NameError: name 'blech' is not defined. Did you mean: 'self.blech'?
+```
+
+---
+
+```python
+# Improve the SyntaxError error message when the user types import x from y instead of from y import x
+
+import a.y.z from b.y.z
+  File "<stdin>", line 1
+    import a.y.z from b.y.z
+    ^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: Did you mean to use 'from ... import ...' instead?
+```
+
+---
+
+```python
+# ImportError exceptions raised from failed from <module> import <name> statements now include suggestions for the value of <name> based on the available names in <module>.
+
+from collections import chainmap
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ImportError: cannot import name 'chainmap' from 'collections'. Did you mean: 'ChainMap'?
+```
