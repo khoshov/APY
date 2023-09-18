@@ -399,3 +399,62 @@ https://peps.python.org/pep-0636/
 # 3.11
 
 ---
+
+# PEP 654, Exception Groups and except*.
+https://peps.python.org/pep-0654/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 657: Include Fine Grained Error Locations in Tracebacks
+https://peps.python.org/pep-0657/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# PEP 680, Support for parsing TOML in the standard library
+https://peps.python.org/pep-0680/
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# 3.12
+
+---
+
+# PEP 701: Syntactic formalization of f-strings
+https://docs.python.org/3.12/whatsnew/3.12.html#whatsnew312-pep701
+
+---
+
+```python
+# code example goes here
+```
+
+---
+
+# Ever Better Error Messages
+https://docs.python.org/3.12/whatsnew/3.12.html#improved-error-messages
+
+---
+
+```python
+# code example goes here
+```
+
+---
