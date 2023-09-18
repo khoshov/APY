@@ -568,8 +568,6 @@ https://peps.python.org/pep-0585/
 ---
 This PEP proposes to enable support for the generics syntax in all standard collections currently available in the typing module.
 ```python
-from __future__ import annotations
-
 def find(haystack: dict[str, list[int]]) -> int:
     ...
 ```
@@ -667,17 +665,6 @@ def sum_list(numbers):
 ---
 
 # 3.11
-
----
-
-# PEP 654: Exception Groups and except*.
-https://peps.python.org/pep-0654/
-
----
-
-```python
-# code example goes here
-```
 
 ---
 
