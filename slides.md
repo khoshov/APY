@@ -128,7 +128,6 @@ https://peps.python.org/pep-0526/
 ---
 
 PEP 484 introduced type hints, a.k.a. type annotations. While its main focus was function annotations, it also introduced the notion of type comments to annotate variables:
-
 ```python
 # 'primes' is a list of integers
 primes = []  # type: List[int]
@@ -144,8 +143,6 @@ class Starship:
 ---
 
 This PEP aims at adding syntax to Python for annotating the types of variables (including class variables and instance variables), instead of expressing them through comments:
----
-
 ```python
 primes: List[int] = []
 
