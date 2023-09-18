@@ -307,7 +307,7 @@ def __ge__(self, other):
 
 ---
 
-# PEP 562: Module __getattr__
+# PEP 562: Module `__getattr__`
 https://www.python.org/dev/peps/pep-0562/
 
 ---
@@ -391,13 +391,25 @@ dir(lib)  # prints ["new_function_one", "new_function_two", "old_function", ...]
 
 ---
 
-# PEP 572: Syntax for Statement-Local Name Bindings
+# PEP 572: Assignment Expressions
 https://peps.python.org/pep-0572/
 
 ---
 
 ```python
-# code example goes here
+# Handle a matched regex
+if (match := pattern.search(data)) is not None:
+    # Do something with match
+
+# A loop that can't be trivially rewritten using 2-arg iter()
+while chunk := file.read(8192):
+   process(chunk)
+
+# Reuse a value that's expensive to compute
+[y := f(x), y**2, y**3]
+
+# Share a subexpression between a comprehension filter clause and its output
+filtered_data = [y for x in data if (y := f(x)) is not None]
 ```
 
 ---
