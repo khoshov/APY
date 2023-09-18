@@ -336,7 +336,7 @@ from lib import old_function  # Works, but emits the warning
 
 ---
 
-Another widespread use case for `__getattr__`` would be lazy submodule imports. Consider a simple example:
+Another widespread use case for `__getattr__` would be lazy submodule imports. Consider a simple example:
 ```python
 # lib/__init__.py
 
