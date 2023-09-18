@@ -336,7 +336,7 @@ from lib import old_function  # Works, but emits the warning
 
 ---
 
-Another widespread use case for __getattr__ would be lazy submodule imports. Consider a simple example:
+Another widespread use case for `__getattr__`` would be lazy submodule imports. Consider a simple example:
 ```python
 # lib/__init__.py
 
@@ -363,7 +363,7 @@ lib.submod.HeavyClass  # prints "Submodule loaded"
 
 ---
 
-In addition, to allow modifying result of a dir() call on a module to show deprecated and other dynamically generated attributes, it is proposed to support module level __dir__ function. For example:
+In addition, to allow modifying result of a dir() call on a module to show deprecated and other dynamically generated attributes, it is proposed to support module level `__dir__`` function. For example:
 ```python
 # lib.py
 
@@ -397,19 +397,16 @@ https://peps.python.org/pep-0572/
 ---
 
 ```python
-# Handle a matched regex
-if (match := pattern.search(data)) is not None:
-    # Do something with match
+>>> walrus = False
+>>> print(walrus)
+False
+```
 
-# A loop that can't be trivially rewritten using 2-arg iter()
-while chunk := file.read(8192):
-   process(chunk)
+---
 
-# Reuse a value that's expensive to compute
-[y := f(x), y**2, y**3]
-
-# Share a subexpression between a comprehension filter clause and its output
-filtered_data = [y for x in data if (y := f(x)) is not None]
+```python
+>>> print(walrus := True)
+True
 ```
 
 ---
