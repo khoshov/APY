@@ -11,6 +11,14 @@ backgroundColor: #fff
 
 ---
 
+# Мотивация
+
+---
+
+# Объём информации *
+
+---
+
 # Где узнать подробности?
 
 ---
@@ -119,6 +127,8 @@ https://peps.python.org/pep-0526/
 
 ---
 
+PEP 484 introduced type hints, a.k.a. type annotations. While its main focus was function annotations, it also introduced the notion of type comments to annotate variables:
+
 ```python
 # 'primes' is a list of integers
 primes = []  # type: List[int]
@@ -131,6 +141,9 @@ class Starship:
     stats = {}  # type: Dict[str, int]
 ```
 
+---
+
+This PEP aims at adding syntax to Python for annotating the types of variables (including class variables and instance variables), instead of expressing them through comments:
 ---
 
 ```python
@@ -149,6 +162,7 @@ https://peps.python.org/pep-0525/
 
 ---
 
+As an illustration of the code quality improvement, consider the following class that prints numbers with a given delay once iterated:
 ```python
 class Ticker:
     """Yield numbers from 0 to `to` every `delay` seconds."""
@@ -173,6 +187,7 @@ class Ticker:
 
 ---
 
+The same can be implemented as a much simpler asynchronous generator:
 ```python
 async def ticker(delay, to):
     """Yield numbers from 0 to `to` every `delay` seconds."""
@@ -188,6 +203,7 @@ https://peps.python.org/pep-0530/
 
 ---
 
+To illustrate the readability improvement, consider the following example:
 ```python
 result = []
 async for i in aiter():
@@ -197,12 +213,14 @@ async for i in aiter():
 
 ---
 
+With the proposed asynchronous comprehensions syntax, the above code becomes as short as:
 ```python
 result = [i async for i in aiter() if i % 2]
 ```
 
 ---
 
+The PEP also makes it possible to use the await expressions in all kinds of comprehensions:
 ```python
 result = [await fun() for fun in funcs]
 ```
@@ -218,12 +236,16 @@ https://www.python.org/dev/peps/pep-0553/
 
 ---
 
+Python has long had a great debugger in its standard library called pdb. Setting a break point is commonly written like this:
 ```python
 foo()
 import pdb; pdb.set_trace()
 bar()
 ```
 
+---
+
+This PEP proposes a new built-in function called breakpoint() which enters a Python debugger at the call site. Thus the example above would be written like so:
 ```python
 foo()
 breakpoint()
@@ -232,11 +254,12 @@ bar()
 
 ---
 
-# PEP 557: Data Classes
+# PEP 557: Data Classes *
 https://www.python.org/dev/peps/pep-0557/
 
 ---
 
+The @dataclass decorator adds generated methods to the class and returns the same class it was given.
 ```python
 @dataclass
 class InventoryItem:
@@ -249,6 +272,9 @@ class InventoryItem:
         return self.unit_price * self.quantity_on_hand
 ```
 
+---
+
+The @dataclass decorator will add the equivalent of these methods to the InventoryItem class:
 ```python
 def __init__(self, name: str, unit_price: float, quantity_on_hand: int = 0) -> None:
     self.name = name
@@ -289,6 +315,7 @@ https://www.python.org/dev/peps/pep-0562/
 
 ---
 
+A typical example is managing deprecation warnings.
 ```python
 # lib.py
 
@@ -312,6 +339,7 @@ from lib import old_function  # Works, but emits the warning
 
 ---
 
+Another widespread use case for __getattr__ would be lazy submodule imports. Consider a simple example:
 ```python
 # lib/__init__.py
 
@@ -338,6 +366,7 @@ lib.submod.HeavyClass  # prints "Submodule loaded"
 
 ---
 
+In addition, to allow modifying result of a dir() call on a module to show deprecated and other dynamically generated attributes, it is proposed to support module level __dir__ function. For example:
 ```python
 # lib.py
 
@@ -357,17 +386,6 @@ def __dir__():
 import lib
 
 dir(lib)  # prints ["new_function_one", "new_function_two", "old_function", ...]
-```
-
----
-
-# PEP 560: Core support for generic types
-https://www.python.org/dev/peps/pep-0560/
-
----
-
-```python
-# code example goes here
 ```
 
 ---
@@ -392,21 +410,80 @@ https://www.python.org/dev/peps/pep-0570/
 
 ---
 
+From the “ten-thousand foot view”, eliding *args and **kwargs for illustration, the grammar for a function definition would look like:
 ```python
-# code example goes here
+def name(positional_or_keyword_parameters, *, keyword_only_parameters):
+    ...
 ```
 
 ---
 
-# Typing-related: PEP 591 (Final qualifier), PEP 586 (Literal types), and PEP 589 (TypedDict)
+Building on that example, the new syntax for function definitions would look like:
+```python
+def name(positional_only_parameters, /, positional_or_keyword_parameters, *, keyword_only_parameters):
+    ...
+```
+
+---
+
+# PEP 591 – Adding a final qualifier to typing
 https://peps.python.org/pep-0591/
+
+---
+
+The typing.final decorator is used to restrict the use of inheritance and overriding.
+```python
+from typing import final
+
+@final
+class Base:
+    ...
+
+class Derived(Base):  # Error: Cannot inherit from final class "Base"
+    ...
+```
+
+---
+
+# PEP 586 – Literal Types
 https://peps.python.org/pep-0586/
+
+---
+
+Literal types indicate that some expression has literally a specific value.
+```python
+from typing import Literal
+
+def accepts_only_four(x: Literal[4]) -> None:
+    pass
+
+accepts_only_four(4)   # OK
+accepts_only_four(19)  # Rejected
+```
+
+---
+
+# PEP 589 – TypedDict: Type Hints for Dictionaries with a Fixed Set of Keys
 https://peps.python.org/pep-0589/
 
 ---
 
+Here is an example where PEP 484 doesn’t allow us to annotate satisfactorily:
 ```python
-# code example goes here
+movie = {'name': 'Blade Runner', 'year': 1982}
+```
+
+---
+
+This PEP proposes the addition of a new type constructor, called TypedDict, to allow the type of movie to be represented precisely:
+```python
+from typing import TypedDict
+
+class Movie(TypedDict):
+    name: str
+    year: int
+
+movie: Movie = {'name': 'Blade Runner', 'year': 1982}
 ```
 
 ---
@@ -416,7 +493,17 @@ https://peps.python.org/pep-0589/
 ---
 
 ```python
-# code example goes here
+>>> python = 3.7
+>>> f"python={python}"
+'python=3.7'
+```
+
+---
+
+```python
+>>> python = 3.8
+>>> f"{python=}"
+'python=3.8'
 ```
 
 ---
@@ -506,7 +593,7 @@ https://peps.python.org/pep-0604/
 
 ---
 
-# PEP 634, PEP 635, PEP 636, Structural Pattern Matching
+# PEP 634, PEP 635, PEP 636, Structural Pattern Matching *
 https://peps.python.org/pep-0634/
 https://peps.python.org/pep-0635/
 https://peps.python.org/pep-0636/
