@@ -18,7 +18,7 @@ style: |
         align-items: flex-start;
         flex-flow: column;
         height: 100%;
-        max-height: 74.4%;
+        max-height: 73.3%%;
         padding: 0 4px;
     }
 
