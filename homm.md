@@ -44,6 +44,10 @@ style: |
         width: 100%;
     }
 
+    .column img:first-of-type {
+        margin-top: 0;
+    }
+
     .column-1 img {
         vertical-align: top;
     }
@@ -137,12 +141,12 @@ style: |
 
 ---
 
-<img src="homm3.png" width="50%" style="margin: 0 auto; background: #000" />
+# 1999
+<img src="putin.jpg" width="50%" style="margin: 0 auto; background: #000" />
 
 ---
 
-# 1999
-<img src="putin.jpg" width="50%" style="margin: 0 auto; background: #000" />
+<img src="homm3.png" width="50%" style="margin: 0 auto; background: #000" />
 
 ---
 
@@ -246,4 +250,4 @@ style: |
 
 ---
 
-# <!--fit-->✌️
+# <!--fit-->Long live the king! :crown:
